@@ -1,56 +1,48 @@
-/// runc.js
-// Function to recursively hide cursor for all elements
-javascript:function hideCursor(node) {
-    var children = node.childNodes;
-    for (var i in children) {
-        hideCursor(children[i]);
-        if (children[i].style && children[i] !== catCursor) {
-            children[i].style.cursor = "none";
-        }
-    }
-}
-
-// Create an image element for the cat cursor
-var catCursor = document.createElement('img');
-// Set the source of the image to a cat cursor image
-catCursor.src = 'https://www.cursor.cc/cursor3d/33866.png'; // Replace 'https://example.com/cat_cursor.png' with the URL of your cat cursor image
-// Set the cursor style to none to hide the default cursor
-catCursor.style.cursor = 'none';
-// Set the position of the cat cursor to fixed so it stays in place when scrolling
-catCursor.style.position = 'fixed';
-// Set initial position of the cat cursor
-catCursor.style.top = '0';
-catCursor.style.left = '0';
-// Set the z-index high to ensure the cat cursor appears on top of other elements
-catCursor.style.zIndex = '999999';
-// Reduce the size of the cat cursor image by 75%
-catCursor.style.width = '3.5%'; // Reduce width by 75%
-catCursor.style.height = 'auto'; // Maintain aspect ratio based on the width
-// Make the image unclickable
-catCursor.style.pointerEvents = 'none';
-
-// Append the cat cursor image to the document body
-document.body.appendChild(catCursor);
-
-// Function to update the position of the cat cursor
-function updateCatCursorPosition(event) {
-    catCursor.style.top = (event.clientY - catCursor.height / 2) + 'px';
-    catCursor.style.left = (event.clientX - catCursor.width / 2) + 'px';
-}
-
-// Add event listener to update the position of the cat cursor when the mouse moves
-document.addEventListener('mousemove', updateCatCursorPosition);
-
-// Hide cursor for all elements except catCursor
-hideCursor(document.body);
-
-// Make the cat cursor image unclickable again
-catCursor.style.pointerEvents = 'none';
-
-// Code to execute JavaScript on keydown event
-window.onkeydown = function(event) {
-    if (event.keyCode === 192) {
+// runc.js
+javascript:window.onkeydown = function(event) {
+    if (event.keyCode === 220) {
         (function() {
+            var style = document.createElement('style');
+            style.innerHTML = '* { cursor: none !important; }';
+            document.head.appendChild(style);
+
+            var customCursor = document.createElement('img');
+            customCursor.src = 'https://i.ibb.co/0sk7SFG/cat-cursor.png'; // Replaced with the provided image URL
+            customCursor.style.position = 'fixed';
+            customCursor.style.top = '0';
+            customCursor.style.left = '0';
+            customCursor.style.zIndex = '999999';
+            customCursor.style.width = '3%';
+            customCursor.style.height = 'auto';
+            customCursor.style.pointerEvents = 'none';
+            document.body.appendChild(customCursor);
+
+            function updateCustomCursorPosition(event) {
+                customCursor.style.top = (event.clientY - customCursor.height / 2) + 'px';
+                customCursor.style.left = (event.clientX - customCursor.width / 2) + 'px';
+
+                var bgColor = getComputedStyle(document.body).backgroundColor;
+                var brightness = calculateBrightness(bgColor);
+                if (brightness < 128) {
+                    customCursor.style.filter = 'invert(100%)';
+                } else {
+                    customCursor.style.filter = 'none';
+                }
+            }
+
+            document.addEventListener('mousemove', updateCustomCursorPosition);
+
+            function calculateBrightness(color) {
+                var match = color.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+                if (!match) return null;
+                var r = parseInt(match[1]);
+                var g = parseInt(match[2]);
+                var b = parseInt(match[3]);
+                return (r * 299 + g * 587 + b * 114) / 1000;
+            }
+        })();
+    } else if (event.keyCode === 192) {
+        (function(){
             var code = prompt("Enter JavaScript code to run:");
             if (code) {
                 var script = document.createElement('script');
