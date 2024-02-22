@@ -1,4 +1,4 @@
-// runcursor.js
+// runc.js
 javascript:window.onkeydown = function(event) {
     if (event.keyCode === 220) {
         (function() {
