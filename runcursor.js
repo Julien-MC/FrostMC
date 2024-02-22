@@ -1,4 +1,4 @@
-// runc.js
+// runcursor.js
 javascript:window.onkeydown = function(event) {
     if (event.keyCode === 220) {
         (function() {
@@ -7,7 +7,7 @@ javascript:window.onkeydown = function(event) {
             document.head.appendChild(style);
 
             var customCursor = document.createElement('img');
-            customCursor.src = 'https://i.ibb.co/0sk7SFG/cat-cursor.png'; // Replaced with the provided image URL
+            customCursor.src = 'https://i.ibb.co/0sk7SFG/cat-cursor.png';
             customCursor.style.position = 'fixed';
             customCursor.style.top = '0';
             customCursor.style.left = '0';
