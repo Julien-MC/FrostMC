@@ -1,4 +1,4 @@
-/// runc.js
+/// catc.js
 javascript:(function() {
     // Function to recursively hide cursor for all elements
     function hideCursor(node) {
