@@ -1,5 +1,5 @@
 // log credits to the console
-console.log('made by zek-c!')
+console.log('made by FrostMC!')
 //just a variable, does nothing.
 var madeByZekC='Made by FrostMC';
 // alert credits
